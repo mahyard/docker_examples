@@ -11,5 +11,8 @@ FROM debian:buster-slim
 
 RUN apt update
 RUN apt install -y nginx
+RUN rm /var/log/nginx/access.log /var/log/nginx/error.log
+RUN ln -s /dev/stdout /var/log/nginx/access.log
+RUN ln -s /dev/stderr /var/log/nginx/error.log
 
 CMD ["nginx", "-g", "daemon off;"]
