@@ -2,7 +2,7 @@
 # docker pull mahyard/nginx:latest
 #
 # Run with:
-# docker container run --rm --name ng1 -p 80:80 -d mahyard/nginx:latest
+# docker container run -v $(pwd)/html/:/var/www/html:ro --rm --name ng1 -p 80:80 -d mahyard/nginx:latest
 #
 # Exit with:
 # docker container stop ng1
