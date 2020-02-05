@@ -1,3 +1,6 @@
+# Build with:
+# docker image build -t mahyard/nginx:latest .
+#
 # Get the image with:
 # docker pull mahyard/nginx:latest
 #
