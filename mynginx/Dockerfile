@@ -18,4 +18,6 @@ RUN rm /var/log/nginx/access.log /var/log/nginx/error.log
 RUN ln -s /dev/stdout /var/log/nginx/access.log
 RUN ln -s /dev/stderr /var/log/nginx/error.log
 
+EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
