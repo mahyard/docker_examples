@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  dbms:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+    volumes:
+      - mysql57_data:/var/lib/mysql
+
+  webapp:
+    image: mahyard/webapp:latest
+    ports:
+      - 80:80
+    environment:
+      - MWA_DB_HOST
+      - MWA_DB_USER
+      - MWA_DB_PASS
+      - MWA_DB_NAME
+    depends_on:
+      - dbms
+
+  # alpine:
+  #   image: mahyard/alpine:latest
+  #   stdin_open: true
+  #   tty: true
+  #   command: bash
+
+volumes:
+  mysql57_data:
