@@ -1,0 +1,26 @@
+# This is a simple haproxy config, to demonstrate a load balancer functionality
+# server <name> <address>[:port] [settings ...]
+
+global
+  log stdout format raw local0 info
+
+defaults
+  mode http
+  balance roundrobin
+  timeout client 10s
+  timeout connect 5s
+  timeout server 10s
+  timeout http-request 10s
+  log global
+
+listen stats
+  bind :7000
+  stats uri /
+
+frontend lb_http
+  bind :80
+  default_backend lb_${LB_UPSTREAM}_backend
+
+backend lb_${LB_UPSTREAM}_backend
+  http-send-name-header Host
+  server ${LB_UPSTREAM} ${LB_UPSTREAM}:80 check
