@@ -2,8 +2,7 @@ FROM haproxy:2.4.3-alpine
 
 USER root
 
-RUN apk update
-RUN apk add gettext
+RUN apk update && apk add gettext && rm -rf /var/cache/apk/*
 
 COPY start_lb.sh /usr/local/bin/
 COPY haproxy.cfg.tmpl /usr/local/etc/haproxy/haproxy.cfg.tmpl
