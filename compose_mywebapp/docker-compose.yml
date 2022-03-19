@@ -1,6 +1,15 @@
 version: "3.3"
 
 services:
+  lb:
+    image: mahyard/loadbalancer:latest
+    environment:
+      - LB_UPSTREAM
+    ports:
+      - 80:80
+      - 7000:7000
+    depends_on:
+      - webapp
   dbms:
     image: mysql:5.7
     environment:
@@ -12,8 +21,6 @@ services:
 
   webapp:
     image: mahyard/webapp:latest
-    ports:
-      - 80:80
     environment:
       - MWA_DB_HOST
       - MWA_DB_USER

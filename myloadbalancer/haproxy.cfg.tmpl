@@ -4,6 +4,10 @@
 global
   log stdout format raw local0 info
 
+resolvers docker_resolver
+  nameserver dns1 127.0.0.11:53
+  hold valid 1s
+
 defaults
   mode http
   balance roundrobin
@@ -22,5 +26,5 @@ frontend lb_http
   default_backend lb_${LB_UPSTREAM}_backend
 
 backend lb_${LB_UPSTREAM}_backend
-  http-send-name-header Host
-  server ${LB_UPSTREAM} ${LB_UPSTREAM}:80 check
+  option forwardfor
+  server-template ${LB_UPSTREAM} 10 ${LB_UPSTREAM}:80 resolvers docker_resolver check
